@@ -1,0 +1,16 @@
+#!/bin/bash
+
+POH=$(sudo smartctl -a /dev/sda | awk '/Power_On_Hours/ {print $10}'| cut -d"h" -f1 )
+
+YEARSCALC=$((  $POH / 8760 ))
+MONTHSCALC=$(( ($POH - ($YEARSCALC * 8760)) / 730 ))
+DAYSCALC=$(( ($POH - ($YEARSCALC * 8760) - ($MONTHSCALC * 730 )) / 24 ))
+HOURSCALC=$((  $POH - ($YEARSCALC * 8760) - ($MONTHSCALC * 730 ) - ($DAYSCALC * 24) ))
+
+[[ $YEARSCALC > 0  ]] && YEARS=$YEARSCALC"y "
+[[ $MONTHSCALC > 0 ]] && MONTHS=$MONTHSCALC"m "
+[[ $DAYSCALC > 0   ]] && DAYS=$DAYSCALC"d "
+[[ $HOURSCALC > 0  ]] && HOURS=$HOURSCALC"h"
+
+echo $YEARS$MONTHS$DAYS$HOURS
+

@@ -1,0 +1,71 @@
+conky.config = {
+-- ------------------------- Windows Settings
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = false,
+	own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+
+	double_buffer = true,
+	background = true,
+
+-- ------------------------- Position
+	alignment = 'bottom_left',
+
+	minimum_width = 313,
+        minimum_height = 165,
+	maximum_width = 313,
+	gap_x = 1565,
+	gap_y = 150,
+
+-- ------------------------- Font
+	use_xft = true,
+	xftalpha = 0.8,
+	override_utf8_locale = true,
+
+	draw_shades = true,
+	default_shade_color = 'black',
+
+	draw_borders = false,
+	draw_outline = false,
+
+	font = 'Monofur:bold:size=8',
+
+-- ------------------------- Color
+	default_color = 'DCDCDC',
+	color0 = '1793d0',
+	color1 = 'DDDDDD',
+	color2 = 'AAAAAA',
+	color3 = '888888',
+
+--------------------------- OTHER
+--	update_interval = 5,
+};
+
+
+
+
+
+
+conky.text = [[
+${voffset 20}${GOTO 50}${font}AUDIO${alignr}INTEL NM10/ICH7
+${GOTO 50}${font}Volume: ${font Monofur:size=8}${exec ~/.conky/ConkyBar/scripts/volume.sh}${alignr}${font Monofur:size=7}[+ NVIDIA HDA HDMI/DP]
+${if_mpd_playing}${image ~/.conky/ConkyBar/img/mopidy2.png -p 30,55 -s 60x60 -f 60}
+${font}${color0}${GOTO 100}${mpd_artist}
+${font Monofur:size=8}${color}${GOTO 100}${mpd_title}
+${GOTO 100}${color3}${font Monofur:size=7}${mpd_album}${alignr}${mpd_date}
+
+${font Monofur:size=8}${color}${GOTO 100}${mpd_elapsed} / ${mpd_length} ${alignr}${mpd_status} - ${mpd_percent}%
+${GOTO 100}${mpd_bar 5,215}
+${voffset 7}${GOTO 50}${font}Arch news: ${font Monofur:size=7}${color}${rss https://www.archlinux.org/feeds/news/ 20 item_title 0}${else}
+${font}Arch news:
+${GOTO 20}${font Monofur:size=8}${color0}${rss https://www.archlinux.org/feeds/news/ 20 item_title 0}
+${GOTO 20}${color}${rss https://www.archlinux.org/feeds/news/ 20 item_title 1}
+${GOTO 20}${color3}${rss https://www.archlinux.org/feeds/news/ 20 item_title 2}
+${GOTO 20}${color3}${rss https://www.archlinux.org/feeds/news/ 20 item_title 3}
+${GOTO 20}${color3}${rss https://www.archlinux.org/feeds/news/ 20 item_title 4}
+${GOTO 20}${color3}${rss https://www.archlinux.org/feeds/news/ 20 item_title 5}${endif}${if_match "${exec ~/.conky/ConkyBar/scripts/volume.sh}"=="Muted"}${image ~/.conky/ConkyBar/img/mute.png -p 0,15}${else}${if_match "${exec ~/.conky/ConkyBar/scripts/volume.sh}">"50"}${image ~/.conky/ConkyBar/img/volumehigh.png -p 0,15}${else}${image ~/.conky/ConkyBar/img/volumemid.png -p 0,15}${endif}${endif}
+]];
+
+

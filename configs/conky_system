@@ -1,0 +1,60 @@
+conky.config = {
+-- ------------------------- Windows Settings
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = false,
+	own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+
+	double_buffer = true,
+	background = true,
+
+-- ------------------------- Position
+	alignment = 'bottom_left',
+
+	minimum_width = 240, 
+	minimum_height = 165,
+	maximum_width = 313,
+	gap_x = 60,
+	gap_y = 150,
+
+-- ------------------------- Font
+	use_xft = true,
+	xftalpha = 0.8,
+	override_utf8_locale = true,
+
+	draw_shades = true,
+	default_shade_color = 'black',
+
+	draw_borders = false,
+	draw_outline = false,
+
+	font = 'Monofur:bold:size=8',
+
+-- ------------------------ Colors
+	default_color = 'DCDCDC',
+	color0 = '1793d0',
+
+-- ------------------------- Other
+--	update_interval = 1,
+};
+
+
+
+
+
+
+
+
+
+conky.text = [[
+${voffset 20}${GOTO 50}${font}${texeci 3600 uname -n | tr '[:lower:]' '[:upper:]'}${alignr}${color0}${font}${loadavg 1}${color} ${loadavg 2} ${loadavg 3}
+${GOTO 50}${font}Uptime: ${font Monofur:size=8}${uptime_short}${alignr}${font Monofur:size=7}[ ${texecpi 3600 ~/.conky/ConkyBar/scripts/systemage}  ${texecpi 3600 systemd-analyze|head -1| cut -d" " -f10}]
+${voffset 15}${GOTO 50}${font}Packages: ${font Monofur:size=8}${texecpi 3600 /usr/bin/pacman -Q|wc -l} ${texecpi 3600 ~/.conky/ConkyBar/scripts/getupd}
+${GOTO 50}${font}Mirror: ${font Monofur:size=8}${texecpi 3600 grep Server /etc/pacman.d/mirrorlist | head -1 | cut -d"/" -f3}
+${GOTO 50}${font}Logs: ${font Monofur:size=8}${texecpi 3600 du -sh /var/log 2>/dev/null| cut -f1}
+
+${voffset 5}${GOTO 50}${texecpi 3600 ~/.conky/ConkyBar/scripts/kernel_version2} 
+${voffset 6}${GOTO 35}${font}GT218 ION: ${font Monofur:size=8}${nvidia temp}°C | ${nvidia memused} MiB | ${font Monofur:size=8} Perf ${nvidia perflevelcur} - ${nvidia gpuutil}%${image ~/.conky/ConkyBar/img/system.png -p 0,15}
+]];

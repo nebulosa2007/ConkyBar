@@ -1,0 +1,26 @@
+#!/bin/bash
+
+KERVER="linux-ck-atom-modprobed"
+KERVEROPT=""
+#UKERNEL=$(/usr/bin/pacman -Qu $KERVER 2>/dev/null)
+UKERVERLOCAL=$(pacman -Qi $KERVER | grep Version | cut -d" " -f11)
+UKERVERWEB=$(wget -qO- https://aur.archlinux.org/packages/linux-ck | grep "Package Details" | cut -d" " -f4 | cut -d"<" -f1)
+UNVIDIALOCAL=$(pacman -Qi nvidia-340xx-dkms | grep Version | cut -d" " -f11)
+UNVIDIAWEB=$(wget -qO- https://aur.archlinux.org/packages/nvidia-340xx-dkms | grep "Package Details" | cut -d" " -f4 | cut -d"<" -f1)
+KERNEL=$(uname -r  | cut -d"-" -f1-4)
+NVIDIA=$(pacman -Q | egrep "nvidia.*dkms" | cut -d" " -f2)
+CA="\${color0}"
+CD="\${color}"
+
+#COLKER=$([[ $UKERNEL ]] && echo $CD || echo $CA )
+#echo $UNVIDIALOCAL
+#echo $UNVIDIAWEB
+#echo $UKERVERLOCAL
+#echo $UKERVERWEB
+
+COLNV=$([[ $UNVIDIALOCAL = $UNVIDIAWEB ]] && echo $CA || echo $CD)
+COLNV=$([[ -z $UNVIDIAWEB ]] && echo $CA || echo $COLNV)
+COLKER=$([[ $UKERVERLOCAL = $UKERVERWEB ]] && echo $CA || echo $CD)
+COLKER=$([[ -z $UKERVERWEB ]] && echo $CA || echo $COLKER)
+
+echo $COLKER$KERNEL$KERVEROPT$CD" with "$COLNV"nvidia-"$NVIDIA$CD

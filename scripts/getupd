@@ -1,0 +1,12 @@
+#!/bin/bash
+
+UPDTS=$(pikaur -qQu 2>/dev/null)
+QNTYUPD=$([ `echo $UPDTS | md5sum | cut -d" " -f1` = "68b329da9893e34099c7d8ad5cb9c940" ] && echo 0 || ( echo $UPDTS | wc -w ) )
+
+CA="\${color0}"
+CD="\${color}"
+#echo $QNTYUPD
+
+[[ $QNTYUPD = 0 ]] || echo "("$CA$QNTYUPD$CD" for update)"
+
+

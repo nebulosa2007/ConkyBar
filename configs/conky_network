@@ -1,0 +1,73 @@
+conky.config = {
+-- ------------------------- Windows Settings
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = false,
+	own_window_hints = 'undecorated,sticky,below,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+
+	double_buffer = true,
+	--background = true,
+
+-- ------------------------- Position
+	alignment = 'bottom_left',
+
+	minimum_width = 295,
+	minimum_height = 165,
+	maximum_width = 313,
+	gap_x = 1252,
+	gap_y = 150,
+
+-- ------------------------- Font
+	use_xft = true,
+	xftalpha = 0.8,
+	override_utf8_locale = true,
+
+	draw_shades = true,
+	default_shade_color = 'black',
+
+	draw_borders = false,
+	draw_outline = false,
+
+	font = 'Monofur:bold:size=8',
+
+-- ------------------------- Color
+	default_color = 'DCDCDC',
+	color0 = '1793d0',
+
+
+-- ------------------------- OTHER
+	lua_load = '~/.conky/ConkyBar/lua/net_graph.lua',
+	lua_draw_hook_pre = 'main_graph',
+
+};
+
+
+
+
+conky.text = [[${if_existing /proc/net/route enp2s0}${voffset 20}${GOTO 50}${font}NETWORK${if_existing /proc/net/route tun0}${GOTO 134}${color0}VPN ON${color}${endif}${alignr}RTL8168 1GB/s
+${GOTO 50}${font}IPv4: ${font Monofur:size=7}${if_existing /proc/net/route tun0}${texeci 3600 wget -4 -qO- http://ifconfig.co}${else}${texeci 3600 wget -4 -qO- http://ifconfig.co}${endif}${alignr}${texecpi 43200 ~/.conky/ConkyBar/scripts/getbal}
+${GOTO 50}${font}IPv6: ${font Monofur:size=7}${texeci 3600 sleep 30; wget -6 -qO- http://ifconfig.co}
+${voffset 8}${GOTO 100}${font Monofut:bold:size=12}↓${font Monofur:size=8} ${totaldown enp2s0}  ${downspeed enp2s0}/s
+${GOTO 100}${font Monofur:bold:size=12}↑${font Monofur:size=8} ${totalup enp2s0}  ${upspeed enp2s0}/s${image ~/.conky/ConkyBar/img/networkhigh.png -p 0,15}${else}${if_existing /proc/net/route wlp0s29f7u1}${voffset 20}${GOTO 50}${font}NETWORK${if_existing /proc/net/route tun0}${GOTO 134}${color0}VPN ON${color}${endif}${alignr}IEEE 802.11b/g
+${GOTO 50}${font}IPv4: ${font Monofur:size=7}${texeci 3600 wget -4 -qO- http://ifconfig.co}${alignr}${texeci 43200 ~/.conky/ConkyBar/scripts/getbal}
+${GOTO 50}${font}IPv6: ${font Monofur:size=7}${texeci 3600 sleep 30; wget -6 -qO- http://ifconfig.co}
+${voffset 8}${GOTO 100}${font Monofut:bold:size=12}↓${font Monofur:size=8} ${totaldown wlp0s29f7u1}  ${downspeed wlp0s29f7u1}/s
+${GOTO 100}${font Monofur:bold:size=12}↑${font Monofur:size=8} ${totalup wlp0s29f7u1}  ${upspeed wlp0s29f7u1}/s
+${if_match "${wireless_link_qual_perc wlp0s29f7u1}"<"033"}${image ~/.conky/ConkyBar/img/networklow.png -p 0,15 -s 45x45}${else}${if_match "${wireless_link_qual_perc wlp0s29f7u1}"<"066"}${image ~/.conky/ConkyBar/img/networkmid.png -p 0,15}${else}${image ~/.conky/ConkyBar/img/networkhigh.png -p 0,15}${endif}${endif}${else}${voffset 20}${GOTO 50}${font}NETWORK
+${GOTO 50}${font}No connection
+${image ~/.conky/ConkyBar/img/nonetwork.png -p 0,15}
+
+
+
+${endif}${endif}
+${if_existing /proc/net/route enp2s0}
+${voffset -10}${GOTO 70}RX${GOTO 150}TX${GOTO 220}SA
+${color0}${font Monofur:size=8}       today ${GOTO 60}${execi 300 /usr/bin/vnstat -d 2 -i enp2s0 | tail -3 | head -1 | awk '{print $2 $3}'}${GOTO 130}${execi 300 /usr/bin/vnstat -d 2 -i enp2s0 | tail -3 | head -1 | awk '{print $5 $6}'}${GOTO 200}${execi 300 /usr/bin/vnstat -d 2 -i enp2s0 | tail -3 | head -1 | awk '{print $11 $12}'} 
+${color}${font Monofur:size=8}yesterday${GOTO 60}${execi 300 /usr/bin/vnstat -d 2 -i enp2s0 | tail -4 | head -1 | awk '{print $2 $3}'} ${GOTO 130}${execi 300 /usr/bin/vnstat -d 2 -i enp2s0 | tail -4 | head -1 | awk '{print $5 $6}'}${GOTO 200}${execi 300 /usr/bin/vnstat -d 2 -i enp2s0 | tail -4 | head -1 | awk '{print $11 $12}'}
+${font Monofur:size=8}      month ${GOTO 60}${execi 300 /usr/bin/vnstat -m -i enp2s0 | tail -3 | head -1 | awk '{print $2 $3}'} ${GOTO 130}${execi 300 /usr/bin/vnstat -m -i enp2s0 | tail -3 | head -1 | awk '{print $5 $6}'}${GOTO 200}${execi 300 /usr/bin/vnstat -m -i enp2s0 | tail -3 | head -1 | awk '{print $11 $12}'}${endif}${if_existing /proc/net/route wlp0s29f7u1}${voffset -10}${GOTO 70}RX${GOTO 150}TX${GOTO 220}SA
+${color0}${font Monofur:size=8}       today ${GOTO 60}${execi 300 /usr/bin/vnstat -d 2 -i wlp0s29f7u1 | tail -3 | head -1 | awk '{print $2 $3}'}${GOTO 130}${execi 300 /usr/bin/vnstat -d 2 -i wlp0s29f7u1 | tail -3 | head -1 | awk '{print $5 $6}'}${GOTO 200}${execi 300 /usr/bin/vnstat -d 2 -i wlp0s29f7u1 | tail -3 | head -1 | awk '{print $11 $12}'} 
+${color}${font Monofur:size=8}yesterday${GOTO 60}${execi 300 /usr/bin/vnstat -d 2 -i wlp0s29f7u1 | tail -4 | head -1 | awk '{print $2 $3}'} ${GOTO 130}${execi 300 /usr/bin/vnstat -d 2 -i wlp0s29f7u1 | tail -4 | head -1 | awk '{print $5 $6}'}${GOTO 200}${execi 300 /usr/bin/vnstat -d 2 -i wlp0s29f7u1 | tail -4 | head -1 | awk '{print $11 $12}'}
+${font Monofur:size=8}      month ${GOTO 60}${execi 300 /usr/bin/vnstat -m -i wlp0s29f7u1 | tail -3 | head -1 | awk '{print $2 $3}'} ${GOTO 130}${execi 300 /usr/bin/vnstat -m -i wlp0s29f7u1 | tail -3 | head -1 | awk '{print $5 $6}'}${GOTO 200}${execi 300 /usr/bin/vnstat -m -i wlp0s29f7u1 | tail -3 | head -1 | awk '{print $11 $12}'}${endif}
+]];

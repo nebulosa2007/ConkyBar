@@ -1,0 +1,16 @@
+#!/bin/bash
+
+KERVER="linux"
+UKERNEL=$(/usr/bin/pacman -Qu $KERVER 2>/dev/null)
+UNVIDIALOCAL=$(pacman -Qi nvidia-340xx-dkms | grep Version | cut -d" " -f11)
+UNVIDIAWEB=$(wget -qO- https://aur.archlinux.org/packages/nvidia-340xx-dkms | grep "Package Details" | cut -d" " -f4 | cut -d"<" -f1)
+KERNEL=$(uname -r)
+NVIDIA=$(pacman -Q | egrep "nvidia.*dkms" | cut -d" " -f2)
+CA="\${color0}"
+CD="\${color}"
+
+COLKER=$([[ $UKERNEL ]] && echo $CD || echo $CA )
+COLNV=$([[ $UNVIDIALOCAL = $UNVIDIAWEB ]] && echo $CA || echo $CD)
+COLNV=$([[ -z $UNVIDIAWEB ]] && echo $CA || echo $COLNV)
+
+echo $COLKER$KERNEL$CD" with "$COLNV"nvidia-"$NVIDIA$CD
