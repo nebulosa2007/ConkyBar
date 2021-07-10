@@ -51,7 +51,7 @@ ${GOTO 50}${font}IPv4: ${font Monofur:size=7}${if_existing /proc/net/route tun0}
 ${GOTO 50}${font}IPv6: ${font Monofur:size=7}${texeci 3600 sleep 30; wget -6 -qO- http://ifconfig.co}
 ${voffset 8}${GOTO 100}${font Monofut:bold:size=12}↓${font Monofur:size=8} ${totaldown enp2s0}  ${downspeed enp2s0}/s
 ${GOTO 100}${font Monofur:bold:size=12}↑${font Monofur:size=8} ${totalup enp2s0}  ${upspeed enp2s0}/s${image ~/.conky/ConkyBar/img/networkhigh.png -p 0,15}${else}${if_existing /proc/net/route wlp0s29f7u1}${voffset 20}${GOTO 50}${font}NETWORK${if_existing /proc/net/route tun0}${GOTO 134}${color0}VPN ON${color}${endif}${alignr}IEEE 802.11b/g
-${GOTO 50}${font}IPv4: ${font Monofur:size=7}${texeci 3600 wget -4 -qO- http://ifconfig.co}${alignr}${texeci 43200 ~/.conky/ConkyBar/scripts/getbal}
+${GOTO 50}${font}IPv4: ${font Monofur:size=7}${texeci 3600 wget -4 -qO- http://ifconfig.co}${alignr}${texecpi 43200 ~/.conky/ConkyBar/scripts/getbal}
 ${GOTO 50}${font}IPv6: ${font Monofur:size=7}${texeci 3600 sleep 30; wget -6 -qO- http://ifconfig.co}
 ${voffset 8}${GOTO 100}${font Monofut:bold:size=12}↓${font Monofur:size=8} ${totaldown wlp0s29f7u1}  ${downspeed wlp0s29f7u1}/s
 ${GOTO 100}${font Monofur:bold:size=12}↑${font Monofur:size=8} ${totalup wlp0s29f7u1}  ${upspeed wlp0s29f7u1}/s
