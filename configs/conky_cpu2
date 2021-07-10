@@ -50,7 +50,7 @@ conky.config = {
 
 conky.text = [[
 ${voffset 20}${GOTO 50}${font}CPU${alignr}INTEL ATOM D525
-${GOTO 50}${font}Avg use: ${font Monofur:size=8}${cpu cpu0}%${alignr}${font}${font Monofur:size=7}[${freq 1} ${freq 2} ${freq 3} ${freq 4}MHz ${hwmon 1 fan 1}RPM ${hwmon 1 temp 1}°C]
+${GOTO 50}${font}Avg use: ${font Monofur:size=8}${cpu cpu0}%${alignr}${font}${font Monofur:size=7}[${freq}MHz ${hwmon 1 fan 1}RPM ${hwmon 1 temp 1}°C]
 ${voffset 15}${font Monofur:size=8}${template0 0 1}
 ${template0 1 2}
 ${template0 2 3}
