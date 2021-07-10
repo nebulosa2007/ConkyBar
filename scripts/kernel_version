@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 KERVER="linux"
 UKERNEL=$(/usr/bin/pacman -Qu $KERVER 2>/dev/null)

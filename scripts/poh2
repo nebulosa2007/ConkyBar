@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 POH=$(sudo smartctl -a /dev/sdb | awk '/Power_On_Hours/ {print $10}'| cut -d"h" -f1 )
 

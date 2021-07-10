@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 killall conky
 conky -c ~/.conky/ConkyBar/configs/conky_bg2 &
 conky -c ~/.conky/ConkyBar/configs/conky_clock &
