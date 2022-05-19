@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+SYSTEMDRUN=$(systemctl --type=service --state=running| grep listed | cut -d" " -f1)
+SYSTEMDFAILED=$(systemctl --failed | grep listed | cut -d" " -f1)
+
+CA="\${color0}"
+CD="\${color}"
+
+echo -n "$SYSTEMDRUN running  " 
+[ $SYSTEMDFAILED -ne 0 ] && echo "($CA$SYSTEMDFAILED failed$CD)"
