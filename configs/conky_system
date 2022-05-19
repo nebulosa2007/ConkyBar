@@ -50,11 +50,12 @@ conky.config = {
 
 conky.text = [[
 ${voffset 20}${GOTO 50}${font}${texeci 3600 uname -n | tr '[:lower:]' '[:upper:]'}${alignr}${color0}${font}${loadavg 1}${color} ${loadavg 2} ${loadavg 3}
-${GOTO 50}${font}Uptime: ${font Monofur:size=8}${uptime_short}${alignr}${font Monofur:size=7}[ ${texecpi 3600 ~/.conky/ConkyBar/scripts/systemage}  ${texecpi 3600 systemd-analyze|head -1| cut -d" " -f10}]
-${voffset 15}${GOTO 50}${font}Packages: ${font Monofur:size=8}${texecpi 3600 /usr/bin/pacman -Q|wc -l} ${texecpi 3600 ~/.conky/ConkyBar/scripts/getupd}
-${GOTO 50}${font}Mirror: ${font Monofur:size=8}${texecpi 3600 grep Server /etc/pacman.d/mirrorlist | head -1 | cut -d"/" -f3}
-${GOTO 50}${font}Logs: ${font Monofur:size=8}${texecpi 3600 du -sh /var/log 2>/dev/null| cut -f1}
+${GOTO 50}${font}Uptime: ${font Monofur:size=8}${uptime_short}${alignr}${font Monofur:size=7}[ ${texecpi 3600 ~/.conky/ConkyBar/scripts/systemage} |${texecpi 3600 systemd-analyze|head -1| cut -d= -f2-}]
+${voffset 15}${GOTO 50}${font}Packages: ${font Monofur:size=8}${texecpi 3600 /usr/bin/pacman -Q| wc -l} ${texecpi 3600 ~/.conky/ConkyBar/scripts/getupd}
+${GOTO 50}${font}Mirror: ${font Monofur:size=8}${texecpi 36000 grep Server /etc/pacman.d/mirrorlist | head -1 | cut -d"/" -f3}
+${GOTO 50}${font}Systemd: ${font Monofur:size=8}${texecpi 3600 ~/.conky/ConkyBar/scripts/systemdstatus } 
 
-${voffset 5}${GOTO 50}${texecpi 3600 ~/.conky/ConkyBar/scripts/kernel_version2} 
-${voffset 6}${GOTO 35}${font}GT218 ION: ${font Monofur:size=8}${nvidia temp}°C | ${nvidia memused} MiB | ${font Monofur:size=8} Perf ${nvidia perflevelcur} - ${nvidia gpuutil}%${image ~/.conky/ConkyBar/img/system.png -p 0,15}
+${GOTO 50}${font}Logs: ${font Monofur:size=8}${texecpi 3600 du -sh /var/log 2>/dev/null| cut -f1}
+${voffset 11}${GOTO 50}${texecpi 3600 ~/.conky/ConkyBar/scripts/kernel_version2} ${image ~/.conky/ConkyBar/img/system.png -p 0,15}
+#${voffset 6}${GOTO 35}${font}HD 6470M: ${font Monofur:size=8}N/A °C | N/A MiB | ${font Monofur:size=8} N/A %
 ]];
